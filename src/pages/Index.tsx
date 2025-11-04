@@ -50,53 +50,58 @@ function Index() {
 
   const getRarityColor = (rarity: string) => {
     const colors: Record<string, string> = {
-      legendary: 'bg-gradient-to-r from-game-orange to-amber-500',
-      epic: 'bg-gradient-to-r from-purple-500 to-pink-500',
-      rare: 'bg-gradient-to-r from-blue-500 to-cyan-500',
-      common: 'bg-gradient-to-r from-gray-500 to-slate-500',
+      legendary: 'bg-gradient-to-br from-game-purple via-game-pink to-game-mint',
+      epic: 'bg-gradient-to-br from-game-pink to-game-purple',
+      rare: 'bg-gradient-to-br from-game-mint to-game-purple',
+      common: 'bg-gradient-to-br from-slate-600 to-slate-800',
     };
     return colors[rarity] || colors.common;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-game-dark via-slate-900 to-game-dark">
-      <div className="bg-slate-950/80 border-b border-border/30 py-2">
+    <div className="min-h-screen bg-gradient-to-br from-game-dark via-purple-950 to-game-dark relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(168,85,247,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(52,211,153,0.15),transparent_50%)] pointer-events-none"></div>
+      
+      <div className="relative z-10">
+      <div className="glass-morphism border-b py-2 backdrop-blur-xl">
         <div className="container mx-auto px-4">
           <div className="flex gap-2 overflow-x-auto scrollbar-hide">
             {miniGames.map((game) => (
               <button
                 key={game.id}
-                className="flex-shrink-0 px-4 py-2 rounded-lg bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-primary/20 hover:border-primary/50 transition-all hover:scale-105 min-w-[140px]"
+                className="flex-shrink-0 px-5 py-3 rounded-2xl glass-morphism hover:glow-purple transition-all hover:scale-105 min-w-[150px] group relative overflow-hidden"
               >
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-2xl">{game.image}</span>
+                <div className="absolute inset-0 bg-gradient-to-br from-game-purple/20 to-game-mint/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="relative flex items-center gap-2 mb-1">
+                  <span className="text-2xl group-hover:animate-pulse-glow">{game.image}</span>
                   <span className="text-sm font-heading font-bold text-foreground">{game.name}</span>
                 </div>
-                {game.price && <div className="text-xs text-primary font-semibold">{game.price}</div>}
+                {game.price && <div className="text-xs text-game-mint font-bold relative">{game.price}</div>}
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      <nav className="border-b border-border/50 backdrop-blur-lg bg-card/30 sticky top-0 z-50">
+      <nav className="glass-morphism border-b sticky top-0 z-50 backdrop-blur-2xl">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="text-3xl font-heading font-bold flex items-center gap-2">
-                <span className="text-primary text-glow-cyan">CSGO</span>
-                <span className="text-secondary">🎃</span>
-                <span className="text-foreground">RUN</span>
+              <div className="text-3xl font-heading font-bold flex items-center gap-2 relative">
+                <div className="absolute -inset-2 bg-gradient-to-r from-game-purple to-game-mint opacity-20 blur-xl rounded-full animate-pulse-glow"></div>
+                <span className="text-game-purple text-glow-purple relative">CSGO</span>
+                <span className="text-game-mint relative">💎</span>
+                <span className="text-foreground relative">RUN</span>
               </div>
             </div>
 
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-2">
               {navigation.slice(0, 6).map((item) => (
                 <Button
                   key={item.id}
                   variant={activeSection === item.id ? 'default' : 'ghost'}
                   onClick={() => setActiveSection(item.id)}
-                  className={activeSection === item.id ? 'glow-cyan' : ''}
+                  className={activeSection === item.id ? 'glow-purple bg-gradient-to-r from-game-purple to-game-violet' : 'hover:glass-morphism'}
                 >
                   <Icon name={item.icon as any} className="w-4 h-4 mr-2" />
                   {item.label}
@@ -105,31 +110,31 @@ function Index() {
             </div>
 
             <div className="flex items-center gap-3">
-              <Badge variant="outline" className="px-4 py-2 text-lg border-primary text-primary glow-cyan">
-                💰 {balance.toLocaleString()}₽
+              <Badge className="px-5 py-2 text-lg bg-gradient-to-r from-game-purple/20 to-game-mint/20 border-2 border-game-mint text-game-mint glow-mint font-bold">
+                💎 {balance.toLocaleString()}₽
               </Badge>
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button className="bg-gradient-to-r from-primary to-cyan-400 hover:from-primary/90 hover:to-cyan-400/90 glow-cyan font-heading">
+                  <Button className="bg-gradient-to-r from-game-purple via-game-pink to-game-mint hover:opacity-90 glow-purple font-heading">
                     ЗАРЕГИСТРИРОВАТЬСЯ
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="bg-card border-primary/30">
+                <DialogContent className="glass-morphism border-game-purple/50">
                   <DialogHeader>
-                    <DialogTitle className="font-heading text-2xl text-primary text-glow-cyan">
+                    <DialogTitle className="font-heading text-2xl text-game-purple text-glow-purple">
                       Регистрация
                     </DialogTitle>
                   </DialogHeader>
                   <div className="space-y-4">
-                    <Input placeholder="Email" className="bg-muted border-border" />
-                    <Input placeholder="Пароль" type="password" className="bg-muted border-border" />
-                    <Button className="w-full bg-gradient-to-r from-primary to-cyan-400 glow-cyan">
+                    <Input placeholder="Email" className="glass-morphism" />
+                    <Input placeholder="Пароль" type="password" className="glass-morphism" />
+                    <Button className="w-full bg-gradient-to-r from-game-purple to-game-mint glow-purple">
                       Создать аккаунт
                     </Button>
                   </div>
                 </DialogContent>
               </Dialog>
-              <Button variant="outline" className="border-primary text-primary">
+              <Button variant="outline" className="border-2 border-game-purple text-game-purple hover:glow-purple">
                 ВОЙТИ
               </Button>
             </div>
@@ -140,34 +145,36 @@ function Index() {
       {activeSection === 'home' && (
         <div className="container mx-auto px-4 py-8 space-y-6 animate-fade-in">
           <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <Card className="relative overflow-hidden border-2 border-secondary/30 bg-gradient-to-br from-orange-900/40 via-red-900/40 to-orange-800/40 hover:border-secondary transition-all cursor-pointer group">
+            <Card className="relative overflow-hidden glass-morphism border-2 border-game-pink/30 hover:border-game-pink hover:glow-pink transition-all cursor-pointer group animate-slide-up">
+              <div className="absolute inset-0 bg-gradient-to-br from-game-pink/20 via-game-purple/10 to-transparent opacity-50"></div>
               <CardContent className="p-0">
                 <div className="relative h-[280px] flex items-center justify-between px-8">
                   <div className="z-10">
-                    <h2 className="text-3xl font-heading font-black mb-2 text-foreground">Блог CSGORUN</h2>
+                    <h2 className="text-3xl font-heading font-black mb-2 text-foreground text-glow-purple">Блог CSGORUN</h2>
                     <p className="text-sm text-muted-foreground mb-4">Гайды, лайфхаки и новости киберспорта в нашем<br />новом блоге csgorun.blog</p>
-                    <Button className="bg-gradient-to-r from-secondary to-orange-500 hover:from-secondary/90 glow-orange">
+                    <Button className="bg-gradient-to-r from-game-pink to-game-purple hover:opacity-90 glow-pink">
                       Блог
                     </Button>
                   </div>
-                  <div className="absolute right-8 text-9xl opacity-80 group-hover:scale-110 transition-transform">
+                  <div className="absolute right-8 text-9xl opacity-60 group-hover:scale-110 group-hover:animate-float transition-transform hexagon-clip">
                     📰
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="relative overflow-hidden border-2 border-primary/30 bg-gradient-to-br from-blue-900/40 via-cyan-900/40 to-blue-800/40 hover:border-primary transition-all cursor-pointer group">
+            <Card className="relative overflow-hidden glass-morphism border-2 border-game-mint/30 hover:border-game-mint hover:glow-mint transition-all cursor-pointer group animate-slide-up" style={{ animationDelay: '0.1s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-game-mint/20 via-game-purple/10 to-transparent opacity-50"></div>
               <CardContent className="p-0">
                 <div className="relative h-[280px] flex items-center justify-between px-8">
                   <div className="z-10">
-                    <h2 className="text-3xl font-heading font-black mb-2 text-foreground">Мой профиль</h2>
+                    <h2 className="text-3xl font-heading font-black mb-2 text-foreground text-glow-mint">Мой профиль</h2>
                     <p className="text-sm text-muted-foreground mb-4">Управляй своим аккаунтом,<br />отслеживай статистику</p>
-                    <Button className="bg-gradient-to-r from-primary to-cyan-400 hover:from-primary/90 glow-cyan">
+                    <Button className="bg-gradient-to-r from-game-mint to-game-purple hover:opacity-90 glow-mint">
                       Профиль
                     </Button>
                   </div>
-                  <div className="absolute right-8 text-9xl opacity-80 group-hover:scale-110 transition-transform">
+                  <div className="absolute right-8 text-9xl opacity-60 group-hover:scale-110 group-hover:animate-float transition-transform">
                     👤
                   </div>
                 </div>
@@ -177,36 +184,40 @@ function Index() {
 
           <section>
             <div className="flex items-center gap-3 mb-6">
-              <Icon name="Gamepad2" className="w-8 h-8 text-primary" />
-              <h2 className="text-3xl font-heading font-bold">Режимы игр</h2>
+              <div className="p-2 rounded-xl glass-morphism glow-purple">
+                <Icon name="Gamepad2" className="w-8 h-8 text-game-purple" />
+              </div>
+              <h2 className="text-3xl font-heading font-bold text-glow-purple">Режимы игр</h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {cases.map((item) => (
+              {cases.map((item, index) => (
                 <Card 
                   key={item.id}
-                  className="group relative overflow-hidden border-2 border-primary/20 hover:border-primary transition-all duration-300 cursor-pointer hover:scale-[1.02] bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur"
+                  className="group relative overflow-hidden glass-morphism border-2 border-game-purple/20 hover:border-game-purple hover:glow-purple transition-all duration-500 cursor-pointer hover:scale-[1.03] animate-slide-up"
+                  style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   <CardContent className="p-0">
-                    <div className="relative h-[200px] bg-gradient-to-br from-blue-900/30 via-slate-900/50 to-cyan-900/30 flex items-center justify-center overflow-hidden">
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,212,255,0.1),transparent_50%)]"></div>
-                      <div className="text-8xl group-hover:scale-110 transition-transform duration-300 relative z-10 drop-shadow-2xl">
+                    <div className="relative h-[200px] bg-gradient-to-br from-game-purple/10 via-game-pink/5 to-game-mint/10 flex items-center justify-center overflow-hidden">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.2),transparent_70%)] group-hover:animate-pulse-glow"></div>
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-game-mint/10 rounded-full blur-3xl group-hover:bg-game-purple/20 transition-colors"></div>
+                      <div className="text-8xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 relative z-10 drop-shadow-2xl filter group-hover:brightness-125">
                         {item.image}
                       </div>
                       {item.count !== undefined && (
-                        <Badge className="absolute top-3 left-3 bg-slate-950/80 text-primary border border-primary/30 backdrop-blur">
+                        <Badge className="absolute top-3 left-3 glass-morphism text-game-mint border-game-mint/50 font-bold">
                           • {item.count}
                         </Badge>
                       )}
                       {item.badge && (
-                        <Badge className="absolute top-3 right-3 bg-secondary text-white border-0">
+                        <Badge className="absolute top-3 right-3 bg-gradient-to-r from-game-pink to-game-purple text-white border-0 glow-pink animate-pulse-glow">
                           {item.badge}
                         </Badge>
                       )}
                     </div>
-                    <div className="p-4 bg-slate-900/50">
-                      <h3 className="font-heading font-bold text-xl mb-1 text-foreground">{item.name}</h3>
-                      <p className="text-sm text-primary font-semibold">{item.price}</p>
+                    <div className="p-4 glass-morphism">
+                      <h3 className="font-heading font-bold text-xl mb-1 text-foreground group-hover:text-glow-purple transition-all">{item.name}</h3>
+                      <p className="text-sm text-game-mint font-bold">{item.price}</p>
                     </div>
                   </CardContent>
                 </Card>
