@@ -22,11 +22,23 @@ function Index() {
     { id: 'profile', label: 'Профиль', icon: 'User' },
   ];
 
+  const miniGames = [
+    { id: 1, name: 'CRASH', price: '3586.16₽', image: '💥' },
+    { id: 2, name: 'DOUBLE', price: '4364.72₽', image: '🎲' },
+    { id: 3, name: 'JACKPOT', price: '10.33₽', image: '🎰' },
+    { id: 4, name: 'ROULETTE', price: '0.00₽', image: '🎡' },
+    { id: 5, name: 'UPGRADE', price: '', image: '⬆️' },
+    { id: 6, name: 'КЕЙСБЭТЛ', price: '', image: '⚔️' },
+  ];
+
   const cases = [
-    { id: 1, name: 'Бегущий человек', price: 86, rarity: 'legendary', image: '🏃' },
-    { id: 2, name: 'Плитки', price: 140, rarity: 'epic', image: '🎫' },
-    { id: 3, name: 'Last of us', price: 142, rarity: 'rare', image: '🎮' },
-    { id: 4, name: 'Хранилище', price: 49, rarity: 'common', image: '🏔️' },
+    { id: 1, name: 'Бегущий человек', price: '3586.16₽', count: 84, rarity: 'legendary', image: '🏃' },
+    { id: 2, name: 'Плитки', price: '4364.72₽', count: 140, rarity: 'epic', image: '🎫' },
+    { id: 3, name: 'Jackrun', price: '10.53₽', count: 26, rarity: 'rare', image: '🎯' },
+    { id: 4, name: 'Last of us', price: '0.00₽', count: 146, rarity: 'common', image: '🎮' },
+    { id: 5, name: 'Upgrade', price: '0.00₽', count: 0, rarity: 'epic', image: '⬆️', badge: 'NEW' },
+    { id: 6, name: 'Хранилище', price: '49₽', count: 49, rarity: 'rare', image: '🏔️' },
+    { id: 7, name: 'Кейсбатл', price: '0₽', count: 0, rarity: 'common', image: '⚔️' },
   ];
 
   const weapons = [
@@ -48,6 +60,25 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-game-dark via-slate-900 to-game-dark">
+      <div className="bg-slate-950/80 border-b border-border/30 py-2">
+        <div className="container mx-auto px-4">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+            {miniGames.map((game) => (
+              <button
+                key={game.id}
+                className="flex-shrink-0 px-4 py-2 rounded-lg bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-primary/20 hover:border-primary/50 transition-all hover:scale-105 min-w-[140px]"
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-2xl">{game.image}</span>
+                  <span className="text-sm font-heading font-bold text-foreground">{game.name}</span>
+                </div>
+                {game.price && <div className="text-xs text-primary font-semibold">{game.price}</div>}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <nav className="border-b border-border/50 backdrop-blur-lg bg-card/30 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -107,71 +138,75 @@ function Index() {
       </nav>
 
       {activeSection === 'home' && (
-        <div className="container mx-auto px-4 py-8 space-y-12 animate-fade-in">
-          <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-800/50 via-slate-900/50 to-slate-800/50 p-12 border border-primary/30">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIHN0cm9rZT0iIzAwZDRmZiIgc3Ryb2tlLXdpZHRoPSIwLjUiIG9wYWNpdHk9IjAuMSIvPjwvZz48L3N2Zz4=')] opacity-30"></div>
-            
-            <div className="relative z-10 text-center max-w-4xl mx-auto">
-              <h1 className="text-6xl md:text-7xl font-heading font-black mb-6 text-glow-cyan">
-                CSGORUN
-              </h1>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-                Регистрируйся и наслаждайся!
-              </h2>
-              <p className="text-xl text-muted-foreground mb-4">
-                Зарегистрируйся и получи +15% бонуса прямо сейчас.
-              </p>
-              <p className="text-lg text-muted-foreground mb-8">
-                Тебя ждет атмосфера незабываемых эмоций, любовь к CS2 и крутая компания единомышленников
-              </p>
-              <div className="flex gap-4 justify-center flex-wrap">
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="border-2 border-foreground text-foreground hover:bg-foreground hover:text-background font-heading text-lg px-8"
-                >
-                  ВОЙТИ НА САЙТ
-                </Button>
-                <Button 
-                  size="lg"
-                  className="bg-gradient-to-r from-primary to-cyan-400 hover:from-primary/90 hover:to-cyan-400/90 glow-cyan font-heading text-lg px-8"
-                >
-                  ЗАРЕГИСТРИРОВАТЬСЯ
-                </Button>
-              </div>
-            </div>
+        <div className="container mx-auto px-4 py-8 space-y-6 animate-fade-in">
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            <Card className="relative overflow-hidden border-2 border-secondary/30 bg-gradient-to-br from-orange-900/40 via-red-900/40 to-orange-800/40 hover:border-secondary transition-all cursor-pointer group">
+              <CardContent className="p-0">
+                <div className="relative h-[280px] flex items-center justify-between px-8">
+                  <div className="z-10">
+                    <h2 className="text-3xl font-heading font-black mb-2 text-foreground">Блог CSGORUN</h2>
+                    <p className="text-sm text-muted-foreground mb-4">Гайды, лайфхаки и новости киберспорта в нашем<br />новом блоге csgorun.blog</p>
+                    <Button className="bg-gradient-to-r from-secondary to-orange-500 hover:from-secondary/90 glow-orange">
+                      Блог
+                    </Button>
+                  </div>
+                  <div className="absolute right-8 text-9xl opacity-80 group-hover:scale-110 transition-transform">
+                    📰
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-            <div className="absolute top-10 left-10 animate-float">
-              <div className="text-8xl opacity-70 rotate-12">🔫</div>
-            </div>
-            <div className="absolute bottom-10 right-10 animate-float" style={{ animationDelay: '1s' }}>
-              <div className="text-8xl opacity-70 -rotate-12">🔪</div>
-            </div>
-          </section>
+            <Card className="relative overflow-hidden border-2 border-primary/30 bg-gradient-to-br from-blue-900/40 via-cyan-900/40 to-blue-800/40 hover:border-primary transition-all cursor-pointer group">
+              <CardContent className="p-0">
+                <div className="relative h-[280px] flex items-center justify-between px-8">
+                  <div className="z-10">
+                    <h2 className="text-3xl font-heading font-black mb-2 text-foreground">Мой профиль</h2>
+                    <p className="text-sm text-muted-foreground mb-4">Управляй своим аккаунтом,<br />отслеживай статистику</p>
+                    <Button className="bg-gradient-to-r from-primary to-cyan-400 hover:from-primary/90 glow-cyan">
+                      Профиль
+                    </Button>
+                  </div>
+                  <div className="absolute right-8 text-9xl opacity-80 group-hover:scale-110 transition-transform">
+                    👤
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
           <section>
             <div className="flex items-center gap-3 mb-6">
               <Icon name="Gamepad2" className="w-8 h-8 text-primary" />
-              <h2 className="text-3xl font-heading font-bold">Что внутри</h2>
+              <h2 className="text-3xl font-heading font-bold">Режимы игр</h2>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {cases.map((item) => (
                 <Card 
                   key={item.id}
-                  className="group relative overflow-hidden border-2 border-border hover:border-primary transition-all duration-300 cursor-pointer hover:scale-105 hover:glow-cyan bg-card/80 backdrop-blur"
+                  className="group relative overflow-hidden border-2 border-primary/20 hover:border-primary transition-all duration-300 cursor-pointer hover:scale-[1.02] bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur"
                 >
                   <CardContent className="p-0">
-                    <div className="relative aspect-[4/3] bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
-                      <div className="text-7xl group-hover:scale-110 transition-transform duration-300">
+                    <div className="relative h-[200px] bg-gradient-to-br from-blue-900/30 via-slate-900/50 to-cyan-900/30 flex items-center justify-center overflow-hidden">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,212,255,0.1),transparent_50%)]"></div>
+                      <div className="text-8xl group-hover:scale-110 transition-transform duration-300 relative z-10 drop-shadow-2xl">
                         {item.image}
                       </div>
-                      <Badge className={`absolute top-3 right-3 ${getRarityColor(item.rarity)} text-white border-0`}>
-                        {item.price}
-                      </Badge>
+                      {item.count !== undefined && (
+                        <Badge className="absolute top-3 left-3 bg-slate-950/80 text-primary border border-primary/30 backdrop-blur">
+                          • {item.count}
+                        </Badge>
+                      )}
+                      {item.badge && (
+                        <Badge className="absolute top-3 right-3 bg-secondary text-white border-0">
+                          {item.badge}
+                        </Badge>
+                      )}
                     </div>
-                    <div className="p-4">
-                      <h3 className="font-heading font-semibold text-lg">{item.name}</h3>
+                    <div className="p-4 bg-slate-900/50">
+                      <h3 className="font-heading font-bold text-xl mb-1 text-foreground">{item.name}</h3>
+                      <p className="text-sm text-primary font-semibold">{item.price}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -179,27 +214,7 @@ function Index() {
             </div>
           </section>
 
-          <section className="grid md:grid-cols-2 gap-6">
-            <Card className="group overflow-hidden border-2 border-border hover:border-primary transition-all cursor-pointer hover:glow-cyan bg-gradient-to-br from-blue-900/30 to-purple-900/30">
-              <CardContent className="p-8">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-heading font-bold">Лиги</h3>
-                  <Icon name="Trophy" className="w-10 h-10 text-primary group-hover:animate-pulse-glow" />
-                </div>
-                <p className="text-muted-foreground">Соревнуйся с другими игроками и получай призы</p>
-              </CardContent>
-            </Card>
 
-            <Card className="group overflow-hidden border-2 border-border hover:border-secondary transition-all cursor-pointer hover:glow-orange bg-gradient-to-br from-green-900/30 to-teal-900/30">
-              <CardContent className="p-8">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-heading font-bold">Игровые события</h3>
-                  <Icon name="Calendar" className="w-10 h-10 text-secondary group-hover:animate-pulse-glow" />
-                </div>
-                <p className="text-muted-foreground">Участвуй в уникальных событиях и выигрывай</p>
-              </CardContent>
-            </Card>
-          </section>
         </div>
       )}
 
