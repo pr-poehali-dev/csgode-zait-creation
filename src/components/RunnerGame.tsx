@@ -116,16 +116,45 @@ export default function RunnerGame({ balance, onBalanceChange }: RunnerGameProps
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <Card className="glass-morphism border-game-purple/30 overflow-hidden">
-            <div className="relative h-[400px] bg-gradient-to-br from-slate-900/50 via-purple-950/30 to-slate-900/50 flex items-center justify-center">
+            <div className="relative h-[500px] bg-gradient-to-br from-slate-900/50 via-purple-950/30 to-slate-900/50">
               <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f46e510_1px,transparent_1px),linear-gradient(to_bottom,#4f46e510_1px,transparent_1px)] bg-[size:40px_40px]"></div>
               
-              <div className="relative z-10 text-center">
-                <div className={`text-8xl mb-6 transition-all duration-300 ${isRunning ? 'animate-bounce-slow' : ''}`}>
+              <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
+                <defs>
+                  <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#34d399" stopOpacity="0.8" />
+                    <stop offset="100%" stopColor="#a855f7" stopOpacity="0.3" />
+                  </linearGradient>
+                </defs>
+                <line 
+                  x1="50%" 
+                  y1="100%" 
+                  x2="50%" 
+                  y2="10%" 
+                  stroke="url(#lineGradient)" 
+                  strokeWidth="4" 
+                  strokeDasharray="10,5"
+                  opacity={isRunning || isCrashed || cashedOut ? "1" : "0.3"}
+                />
+              </svg>
+
+              <div 
+                className="absolute left-1/2 -translate-x-1/2 transition-all duration-300 ease-linear"
+                style={{
+                  bottom: isRunning || cashedOut ? `${Math.min((multiplier - 1) * 40, 85)}%` : isCrashed ? '5%' : '10%',
+                  transform: `translateX(-50%) ${isCrashed ? 'rotate(90deg)' : 'rotate(0deg)'}`,
+                  transition: isCrashed ? 'all 0.5s ease-out' : 'bottom 0.1s linear, transform 0.5s ease-out',
+                  zIndex: 10,
+                }}
+              >
+                <div className={`text-7xl ${isRunning && !isCrashed ? 'animate-runner-bounce' : ''}`}>
                   🏃
                 </div>
-                
-                <div className={`text-7xl font-heading font-bold mb-4 ${
-                  isCrashed ? 'text-red-500' : 
+              </div>
+
+              <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20 text-center">
+                <div className={`text-6xl font-heading font-bold mb-2 ${
+                  isCrashed ? 'text-red-500 animate-pulse' : 
                   cashedOut ? 'text-game-mint' : 
                   'text-foreground'
                 }`}>
@@ -133,17 +162,25 @@ export default function RunnerGame({ balance, onBalanceChange }: RunnerGameProps
                 </div>
                 
                 {isCrashed && (
-                  <Badge className="bg-red-500/20 text-red-400 border-red-500/50 text-lg px-6 py-2">
-                    💥 Упал!
+                  <Badge className="bg-red-500/20 text-red-400 border-red-500/50 text-lg px-6 py-2 animate-fade-in">
+                    💥 Упал на {multiplier.toFixed(2)}x!
                   </Badge>
                 )}
                 
                 {cashedOut && !isCrashed && (
-                  <Badge className="bg-game-mint/20 text-game-mint border-game-mint/50 text-lg px-6 py-2">
+                  <Badge className="bg-game-mint/20 text-game-mint border-game-mint/50 text-lg px-6 py-2 animate-fade-in">
                     ✅ Выигрыш {winAmount}₽
                   </Badge>
                 )}
               </div>
+
+              {!isRunning && !isCrashed && !cashedOut && (
+                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 text-center">
+                  <div className="text-muted-foreground text-lg">
+                    Сделай ставку и начни игру
+                  </div>
+                </div>
+              )}
             </div>
           </Card>
 

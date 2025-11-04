@@ -130,4 +130,18 @@
   .animate-bounce-slow {
     animation: bounce-slow 1s ease-in-out infinite;
   }
+
+  @keyframes runner-bounce {
+    0%,
+    100% {
+      transform: translateY(0) scaleX(1);
+    }
+    50% {
+      transform: translateY(-8px) scaleX(1.05);
+    }
+  }
+
+  .animate-runner-bounce {
+    animation: runner-bounce 0.3s ease-in-out infinite;
+  }
 }
