@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import RunnerGame from '@/components/RunnerGame';
 
 function Index() {
   const [activeSection, setActiveSection] = useState('home');
@@ -367,7 +368,13 @@ function Index() {
         </div>
       )}
 
-      {['games', 'leagues', 'events'].includes(activeSection) && (
+      {activeSection === 'games' && (
+        <div className="animate-fade-in">
+          <RunnerGame balance={balance} onBalanceChange={setBalance} />
+        </div>
+      )}
+
+      {['leagues', 'events'].includes(activeSection) && (
         <div className="container mx-auto px-4 py-8 animate-fade-in">
           <div className="text-center py-20">
             <div className="text-8xl mb-6">🚀</div>
