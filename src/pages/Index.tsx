@@ -151,25 +151,25 @@ function Index() {
       {activeSection === 'home' && (
         <div className="container mx-auto px-4 py-8 space-y-6 animate-fade-in">
           <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <Card className="relative overflow-hidden glass-morphism border-2 border-game-pink/30 hover:border-game-pink hover:glow-pink transition-all cursor-pointer group animate-slide-up">
+            <Card onClick={() => setActiveSection('events')} className="relative overflow-hidden glass-morphism border-2 border-game-pink/30 hover:border-game-pink hover:glow-pink transition-all cursor-pointer group animate-slide-up">
               <div className="absolute inset-0 bg-gradient-to-br from-game-pink/20 via-game-purple/10 to-transparent opacity-50"></div>
               <CardContent className="p-0">
                 <div className="relative h-[280px] flex items-center justify-between px-8">
                   <div className="z-10">
-                    <h2 className="text-3xl font-heading font-black mb-2 text-foreground text-glow-purple">Блог CSGORUN</h2>
-                    <p className="text-sm text-muted-foreground mb-4">Гайды, лайфхаки и новости киберспорта в нашем<br />новом блоге csgorun.blog</p>
+                    <h2 className="text-3xl font-heading font-black mb-2 text-foreground text-glow-purple">События</h2>
+                    <p className="text-sm text-muted-foreground mb-4">Участвуй в турнирах,<br />получай призы и награды</p>
                     <Button className="bg-gradient-to-r from-game-pink to-game-purple hover:opacity-90 glow-pink">
-                      Блог
+                      События
                     </Button>
                   </div>
                   <div className="absolute right-8 text-9xl opacity-60 group-hover:scale-110 group-hover:animate-float transition-transform hexagon-clip">
-                    📰
+                    📅
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="relative overflow-hidden glass-morphism border-2 border-game-mint/30 hover:border-game-mint hover:glow-mint transition-all cursor-pointer group animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <Card onClick={() => setActiveSection('profile')} className="relative overflow-hidden glass-morphism border-2 border-game-mint/30 hover:border-game-mint hover:glow-mint transition-all cursor-pointer group animate-slide-up" style={{ animationDelay: '0.1s' }}>
               <div className="absolute inset-0 bg-gradient-to-br from-game-mint/20 via-game-purple/10 to-transparent opacity-50"></div>
               <CardContent className="p-0">
                 <div className="relative h-[280px] flex items-center justify-between px-8">
@@ -200,6 +200,12 @@ function Index() {
               {cases.map((item, index) => (
                 <Card 
                   key={item.id}
+                  onClick={() => {
+                    if (item.name === 'Бегущий человек') setActiveSection('games');
+                    else if (item.name === 'Плитки') setActiveSection('roulette');
+                    else if (item.name === 'Upgrade') setActiveSection('upgrade');
+                    else setActiveSection('cases');
+                  }}
                   className="group relative overflow-hidden glass-morphism border-2 border-game-purple/20 hover:border-game-purple hover:glow-purple transition-all duration-500 cursor-pointer hover:scale-[1.03] animate-slide-up"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
