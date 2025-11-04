@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import RunnerGame from '@/components/RunnerGame';
 import TileRoulette from '@/components/TileRoulette';
+import UpgradeSystem from '@/components/UpgradeSystem';
 
 function Index() {
   const [activeSection, setActiveSection] = useState('home');
@@ -71,6 +72,9 @@ function Index() {
             {miniGames.map((game) => (
               <button
                 key={game.id}
+                onClick={() => {
+                  if (game.name === 'UPGRADE') setActiveSection('upgrade');
+                }}
                 className="flex-shrink-0 px-5 py-3 rounded-2xl glass-morphism hover:glow-purple transition-all hover:scale-105 min-w-[150px] group relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-game-purple/20 to-game-mint/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -342,6 +346,12 @@ function Index() {
       {activeSection === 'games' && (
         <div className="animate-fade-in">
           <RunnerGame balance={balance} onBalanceChange={setBalance} />
+        </div>
+      )}
+
+      {activeSection === 'upgrade' && (
+        <div className="animate-fade-in">
+          <UpgradeSystem balance={balance} onBalanceChange={setBalance} />
         </div>
       )}
 
