@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import RunnerGame from '@/components/RunnerGame';
+import TileRoulette from '@/components/TileRoulette';
 
 function Index() {
   const [activeSection, setActiveSection] = useState('home');
@@ -267,38 +268,8 @@ function Index() {
       )}
 
       {activeSection === 'roulette' && (
-        <div className="container mx-auto px-4 py-8 animate-fade-in">
-          <h1 className="text-4xl font-heading font-bold mb-8 text-glow-cyan">🎰 Рулетка</h1>
-          <div className="max-w-4xl mx-auto">
-            <Card className="border-primary/30 bg-card/80 backdrop-blur">
-              <CardContent className="p-8">
-                <div className="aspect-[3/1] bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
-                  <div className="flex gap-4 animate-pulse">
-                    {[...Array(10)].map((_, i) => (
-                      <div key={i} className="text-5xl">{weapons[i % weapons.length].image}</div>
-                    ))}
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-4 mb-6">
-                  <Button variant="outline" className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white">
-                    x2
-                  </Button>
-                  <Button variant="outline" className="border-green-500 text-green-500 hover:bg-green-500 hover:text-white">
-                    x3
-                  </Button>
-                  <Button variant="outline" className="border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-white">
-                    x5
-                  </Button>
-                </div>
-                <div className="flex gap-4">
-                  <Input placeholder="Сумма ставки" type="number" className="flex-1" />
-                  <Button className="bg-gradient-to-r from-primary to-cyan-400 glow-cyan px-8">
-                    Крутить
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+        <div className="animate-fade-in">
+          <TileRoulette balance={balance} onBalanceChange={setBalance} />
         </div>
       )}
 
