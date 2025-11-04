@@ -34,7 +34,7 @@ export default function RunnerGame({ balance, onBalanceChange }: RunnerGameProps
     
     onBalanceChange(balance - bet);
     
-    crashPointRef.current = Math.max(1.01, Math.random() * 20);
+    crashPointRef.current = Math.max(1.01, Math.random() * 10);
     
     intervalRef.current = setInterval(() => {
       setMultiplier((prev) => {
@@ -81,7 +81,7 @@ export default function RunnerGame({ balance, onBalanceChange }: RunnerGameProps
     
     onBalanceChange(balance - bet);
     
-    crashPointRef.current = Math.max(1.01, Math.random() * 20);
+    crashPointRef.current = Math.max(1.01, Math.random() * 10);
     
     intervalRef.current = setInterval(() => {
       setMultiplier((prev) => {
